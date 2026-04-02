@@ -1,4 +1,4 @@
-<meta http-equiv="refresh" content="5; url=index.php">
+<meta http-equiv="refresh" content="0; url=index.php">
 <?
 $str=$_GET["id"];
 

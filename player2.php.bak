@@ -1,3 +1,4 @@
+
 <?
 $x=$_POST["karty"];
 if(!empty($x)){

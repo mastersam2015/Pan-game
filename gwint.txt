@@ -1,0 +1,1195 @@
+<!--
+id
+power
+powerbackdup
+miejsce:miecz,luk,balista
+tromba:miecz,luk,balista,qwerty+id
+pogoda:miecz,luk,balista,slonce,none
+szpieg:0/2
+porzoga:tak,nie
+podwojenie:cecha,none
+-->
+
+
+<script type="text/javascript" src="jquery.js"></script>
+
+
+<style>
+
+td {
+
+width:100;
+height:80;
+
+}
+
+
+.aaa {
+
+width:600;
+height:80;
+
+}
+
+.bbb {
+
+
+height:0;
+
+}
+
+.ccc {
+
+width:100;
+height:240;
+
+}
+
+.ddd {
+display: flex;align-items: center;
+    justify-content: center;
+	}
+	
+	img {
+	
+	height:80;
+	width:50;
+	
+	}
+	
+		.srodek {
+	
+	width:300;
+height:400;
+
+position:absolute;
+
+margin-left:-150;
+	
+	}
+</style>
+<script>
+function wyswietl(x){
+$("#obrazek").css("display","inline");
+$("#obrazek").attr("src",x);
+
+
+}
+
+function schowaj(){
+$("#obrazek").css("display","none");
+}
+
+</script>
+
+<?
+//------------------
+//----interakcja prototyp
+//------------------
+$idp=$_GET["id"];
+if(!empty($idp)){
+$myfile=fopen("prototyp.txt", "r");
+
+$prototyp = fread($myfile,filesize("prototyp.txt"));
+fclose($myfile);
+
+$prototyp2=explode("@", $prototyp);
+foreach ($prototyp2 as $funkcje){
+}
+$poms="id*".$idp;
+if(strstr($funkcje,$poms)){//poprawione
+
+$myfile=fopen("tabela.txt", "r");
+$stare = fread($myfile,filesize("tabela.txt"));
+fclose($myfile);
+$stare=$stare."@".$funkcje;
+
+
+	$fp = fopen("tabela.txt", "w");
+
+	
+fputs($fp, $stare);
+fclose($fp);
+
+}
+}
+
+
+
+
+//------------------
+//----operacje na plikach
+//------------------
+
+
+
+$myfile=fopen("tabela.txt", "r");
+$taliaakcja = fread($myfile,filesize("tabela.txt"));
+fclose($myfile);
+
+//------------------
+//----dynmiczna tromba
+//------------------
+
+
+//okrzyk - miecz, luk, balista
+$idp=$_GET["id"];
+$okrzyk=$_GET["okrzyk"];
+$pom="qwerty".$idp;
+
+if(!empty($okrzyk)){
+
+$taliaakcja=str_replace($pom,$okrzyk,$taliaakcja);
+}
+
+
+//------------------
+//----interakcja sily
+//------------------
+
+
+
+$taliaakcja2=explode("@", $taliaakcja);
+
+foreach ($taliaakcja2 as $funkcje){//-----------glowna petla
+
+//----------zerowanie zmiennych
+
+//--------------------------------------------szpieg
+$key=explode("*", $funkcje);
+
+if($key[13]==2){
+$szpieg=1;
+$dowroga=$funkcje;
+
+$funkcjep2=str_replace("szpieg*2","szpieg*0",$funkcje);
+$taliaakcja=str_replace($funkcje,$funkcjep2,$taliaakcja);
+
+}
+
+
+
+//---------------------------------------porzoga
+
+if(key[15] == "tak"){
+$max=0;
+$myfile=fopen("tabelap2.txt", "r");
+$stare = fread($myfile,filesize("tabelap2.txt"));
+fclose($myfile);
+$tabelap2=explode("@", $stare);
+foreach ($tabelap2 as $funkcjep2){
+
+$keyp2=explode("*", $funkcjep2);
+
+if ($keyp2[3]>$max){
+
+$max=$keyp2[3];
+
+}
+
+
+}
+
+$tabelap2b=explode("@", $stare);
+foreach ($tabelap2b as $funkcjep2b){
+
+$keyp2b=explode("*", $funkcjep2b);
+
+if ($keyp2b[3]==$max){
+
+
+
+//$podklad="id*".keyp2b[1]."*power*".keyp2b[3];
+
+$stare=str_replace($funkcjep2b,"",$stare);
+
+}
+
+
+}
+
+$fp = fopen("tabelap2.txt", "w");	
+fputs($fp, $stare);
+fclose($fp);
+
+//------------------------------------------------tak nie
+
+
+$funkcjep2=str_replace("tak","nie",$funkcje);
+$taliaakcja=str_replace($funkcje,$funkcjep2,$taliaakcja);
+}
+//------------------------------podwojenie
+if(key[17] != "none"){
+$pod=0;
+$idtab="";
+foreach ($taliaakcja2 as $kolej){
+
+$key2=explode("*", $kolej);
+
+
+$addpom=key2[5];
+
+
+$idpomoc=key2[1];
+
+
+if(key[17]==key2[17] and key[17]!=0){
+$powerpom=$addpom;
+$addpom=$addpom+$addpom;
+
+$pod=$pod+1;
+
+$idtab="id*".$idpomoc."*power*".$addpom."*zamiana*".$powerpom."@".$idtab;
+
+
+
+}
+}
+
+
+if($pod==2){
+//powerx2
+
+
+$petla=explode("@", $idtab);
+foreach ($petla as $kij2){
+
+
+$kij=explode("*", $kij2);
+
+
+$podklad="id*".kij[1]."*power*".$kij[3];
+$pomkij="id*".kij[1]."*power*".$kij[5];
+
+
+
+$taliaakcja=str_replace($podklad,$pomkij,$taliaakcja);
+
+
+}
+}
+}
+$idtab="";
+//----------------------------------tromba
+$ilosc=0;
+if($key[9]=="miecz" ){
+
+foreach ($taliaakcja2 as $funkcje3){
+
+$key3=explode("*", $funkcje3);
+
+if($key3[7]=="miecz"){
+$ilosc=$ilosc+1;
+}
+}
+if($ilosc==1){
+foreach ($taliaakcja2 as $funkcje3){
+
+$key3=explode("*", $funkcje3);
+
+if($key3[7]=="miecz"){
+
+//power=power+power;
+$podw=key3[5]+key3[5];
+
+$podklad="id*".key3[1]."*power*".key3[3];
+$pomkij="id*".key3[1]."*power*".$podw;
+$taliaakcja=str_replace($podklad,$pomkij,$taliaakcja);
+
+
+}
+}
+}
+}
+$ilosc=0;
+if($key[9]=="luk" ){
+
+foreach ($taliaakcja2 as $funkcje3){
+
+$key3=explode("*", $funkcje3);
+
+if($key3[7]=="luk"){
+$ilosc=$ilosc+1;
+}
+}
+if($ilosc==1){
+foreach ($taliaakcja2 as $funkcje3){
+
+$key3=explode("*", $funkcje3);
+
+if($key3[7]=="luk"){
+
+//power=power+power;
+$podw=key3[5]+key3[5];
+
+$podklad="id*".key3[1]."*power*".key3[3];
+$pomkij="id*".key3[1]."*power*".$podw;
+$taliaakcja=str_replace($podklad,$pomkij,$taliaakcja);
+
+
+}
+}
+}
+}
+$ilosc=0;
+if($key[9]=="balista" ){
+foreach ($taliaakcja2 as $funkcje3){
+
+$key3=explode("*", $funkcje3);
+
+if($key3[7]=="balista"){
+$ilosc=$ilosc+1;
+}
+}
+if($ilosc==1){
+foreach ($taliaakcja2 as $funkcje3){
+
+$key3=explode("*", $funkcje3);
+
+if($key3[7]=="balista"){
+
+//power=power+power;
+$podw=key3[5]+key3[5];
+
+$podklad="id*".key3[1]."*power*".key3[3];
+$pomkij="id*".key3[1]."*power*".$podw;
+$taliaakcja=str_replace($podklad,$pomkij,$taliaakcja);
+
+
+}
+}
+}
+}
+
+
+//------------------------------------------pogoda
+
+if ($key[11] == "miecz"){
+foreach (taliaakcja2 as $funkcje4){
+$key4=explode("*", $funkcje4);
+
+
+if($key4[7]=="miecz"){
+
+$podw=1;
+
+$podklad="id*".key4[1]."*power*".key4[3];
+$pomkij="id*".key3[1]."*power*".$podw;
+$taliaakcja=str_replace($podklad,$pomkij,$taliaakcja);
+
+}
+}
+//p2
+$myfile=fopen("tabelap2.txt", "r");
+$stare = fread($myfile,filesize("tabelap2.txt"));
+fclose($myfile);
+$tabelap2=explode("@", $stare);
+foreach ($tabelap2 as $funkcjep2){
+
+$keyp2=explode("*", $funkcjep2);
+
+if ($keyp2[7]=="miecz"){
+
+$podw=1;
+
+$podklad="id*".keyp2[1]."*power*".keyp2[3];
+$pomkij="id*".keyp2[1]."*power*".$podw;
+$stare=str_replace($podklad,$pomkij,$stare);
+
+
+
+}
+
+
+}
+
+$fp = fopen("tabelap2.txt", "w");	
+fputs($fp, $stare);
+fclose($fp);
+}
+
+//-------------------------------------pogoda
+if ($key[11] == "luk"){
+foreach (taliaakcja2 as $funkcje4){
+$key4=explode("*", $funkcje4);
+
+
+if($key4[7]=="luk"){
+
+$podw=1;
+
+$podklad="id*".key4[1]."*power*".key4[3];
+$pomkij="id*".key3[1]."*power*".$podw;
+$taliaakcja=str_replace($podklad,$pomkij,$taliaakcja);
+
+}
+}
+
+//p2
+$myfile=fopen("tabelap2.txt", "r");
+$stare = fread($myfile,filesize("tabelap2.txt"));
+fclose($myfile);
+$tabelap2=explode("@", $stare);
+foreach ($tabelap2 as $funkcjep2){
+
+$keyp2=explode("*", $funkcjep2);
+
+if ($keyp2[7]=="luk"){
+
+$podw=1;
+
+$podklad="id*".keyp2[1]."*power*".keyp2[3];
+$pomkij="id*".keyp2[1]."*power*".$podw;
+$stare=str_replace($podklad,$pomkij,$stare);
+
+
+
+}
+
+
+}
+
+$fp = fopen("tabelap2.txt", "w");	
+fputs($fp, $stare);
+fclose($fp);
+}
+//-----------------------------------------pogoda
+if ($key[11] == "balista"){
+foreach (taliaakcja2 as $funkcje4){
+$key4=explode("*", $funkcje4);
+
+
+if($key4[7]=="balista"){
+
+$podw=1;
+
+$podklad="id*".key4[1]."*power*".key4[3];
+$pomkij="id*".key3[1]."*power*".$podw;
+$taliaakcja=str_replace($podklad,$pomkij,$taliaakcja);
+
+}
+}
+
+//p2
+$myfile=fopen("tabelap2.txt", "r");
+$stare = fread($myfile,filesize("tabelap2.txt"));
+fclose($myfile);
+$tabelap2=explode("@", $stare);
+foreach ($tabelap2 as $funkcjep2){
+
+$keyp2=explode("*", $funkcjep2);
+
+if ($keyp2[7]=="balista"){
+
+$podw=1;
+
+$podklad="id*".keyp2[1]."*power*".keyp2[3];
+$pomkij="id*".keyp2[1]."*power*".$podw;
+$stare=str_replace($podklad,$pomkij,$stare);
+
+
+
+}
+
+
+}
+
+$fp = fopen("tabelap2.txt", "w");	
+fputs($fp, $stare);
+fclose($fp);
+}
+//----------------------------------------pogoda slonce
+if ($key[11] == "slonce"){
+foreach (taliaakcja2 as $funkcje4){
+$key4=explode("*", $funkcje4);
+
+
+if($key4[7]=="miecz"){
+
+$podw=$key4[5];
+
+$podklad="id*".key4[1]."*power*".key4[3];
+$pomkij="id*".key3[1]."*power*".$podw;
+$taliaakcja=str_replace($podklad,$pomkij,$taliaakcja);
+
+}
+}
+
+
+//p2
+$myfile=fopen("tabelap2.txt", "r");
+$stare = fread($myfile,filesize("tabelap2.txt"));
+fclose($myfile);
+$tabelap2=explode("@", $stare);
+foreach ($tabelap2 as $funkcjep2){
+
+$keyp2=explode("*", $funkcjep2);
+
+if ($keyp2[7]=="miecz"){
+
+$podw=$keyp2[5];
+
+$podklad="id*".keyp2[1]."*power*".keyp2[3];
+$pomkij="id*".keyp2[1]."*power*".$podw;
+$stare=str_replace($podklad,$pomkij,$stare);
+
+
+
+}
+
+
+}
+
+$fp = fopen("tabelap2.txt", "w");	
+fputs($fp, $stare);
+fclose($fp);
+}
+
+//-------------------------------------------pogoda slonce
+if ($key[11] == "slonce"){
+foreach (taliaakcja2 as $funkcje4){
+$key4=explode("*", $funkcje4);
+
+
+if($key4[7]=="luk"){
+
+$podw=$key4[5];
+
+$podklad="id*".key4[1]."*power*".key4[3];
+$pomkij="id*".key3[1]."*power*".$podw;
+$taliaakcja=str_replace($podklad,$pomkij,$taliaakcja);
+
+}
+}
+//p2
+$myfile=fopen("tabelap2.txt", "r");
+$stare = fread($myfile,filesize("tabelap2.txt"));
+fclose($myfile);
+$tabelap2=explode("@", $stare);
+foreach ($tabelap2 as $funkcjep2){
+
+$keyp2=explode("*", $funkcjep2);
+
+if ($keyp2[7]=="luk"){
+
+$podw=$keyp2[5];
+
+$podklad="id*".keyp2[1]."*power*".keyp2[3];
+$pomkij="id*".keyp2[1]."*power*".$podw;
+$stare=str_replace($podklad,$pomkij,$stare);
+
+
+
+}
+
+
+}
+
+$fp = fopen("tabelap2.txt", "w");	
+fputs($fp, $stare);
+fclose($fp);
+}
+//----------------------------------------------pogoda slonce
+if ($key[11] == "slonce"){
+foreach (taliaakcja2 as $funkcje4){
+$key4=explode("*", $funkcje4);
+
+
+if($key4[7]=="balista"){
+
+$podw=$key4[5];
+
+$podklad="id*".key4[1]."*power*".key4[3];
+$pomkij="id*".key3[1]."*power*".$podw;
+$taliaakcja=str_replace($podklad,$pomkij,$taliaakcja);
+
+}
+}
+
+//p2
+$myfile=fopen("tabelap2.txt", "r");
+$stare = fread($myfile,filesize("tabelap2.txt"));
+fclose($myfile);
+$tabelap2=explode("@", $stare);
+foreach ($tabelap2 as $funkcjep2){
+
+$keyp2=explode("*", $funkcjep2);
+
+if ($keyp2[7]=="balista"){
+
+$podw=$keyp2[5];
+
+$podklad="id*".keyp2[1]."*power*".keyp2[3];
+$pomkij="id*".keyp2[1]."*power*".$podw;
+$stare=str_replace($podklad,$pomkij,$stare);
+
+
+
+}
+
+
+}
+
+$fp = fopen("tabelap2.txt", "w");	
+fputs($fp, $stare);
+fclose($fp);
+}
+
+
+
+}//----koniec petli
+
+
+
+
+//------------------
+//----interakcja wyswietlanie
+//------------------
+?>
+
+
+<center>
+<div><img src="mgla.jpg" class="srodek" id="obrazek" style="display:none;z-index:666;"></div>
+<div class="ddd">
+
+<table border="1">
+<tr>
+<td class="ccc" id="punkty2">punkty2</td>
+</tr>
+<tr>
+<td class="ccc" id="punkty">punkty</td>
+</tr>
+</table>
+
+
+
+
+
+<table border="1">
+<tr>
+<td id="balistat2"></td>
+<td id="balistap2"></td>
+<td id="balistaw" class="aaa"></td>
+</tr>
+<tr>
+<td id="lukt2"></td>
+<td id="lukp2"></td>
+<td id="lukw"  class="aaa"></td>
+</tr>
+<tr>
+<td id="mieczt2"></td>
+<td id="mieczp2"></td>
+<td id="mieczw" class="aaa"></td>
+</tr>
+<tr>
+<td class="bbb"></td>
+<td class="bbb"></td>
+<td class="bbb"></td>
+</tr>
+<tr>
+<td id="mieczt"></td>
+<td id="mieczp"></td>
+<td id="miecz" class="aaa"></td>
+</tr>
+<tr>
+<td id="lukt"></td>
+<td id="lukp"></td>
+<td id="luk" class="aaa"></td>
+</tr>
+<tr>
+<td id="balistat"></td>
+<td id="balistap"></td>
+<td id="balista" class="aaa"></td>
+</tr>
+</table>
+</div>
+<table border="1"><tr><td  style="width:600" id="taliamoja"></>
+
+</td></tr></table>
+
+<?
+//-------------------------------------
+//--------------wlasciwe---------------
+//-------------------------------------
+
+$myfile=fopen("karty.txt", "r");
+$stare = fread($myfile,filesize("karty.txt"));
+fclose($myfile);
+
+
+if(empty($stare)){
+while($z==1){
+$zm=rand(1,20);
+$por=",".$zm;
+if (strstr($talia,$por)){
+}else{
+$talia.=$zm.",";
+$p++;
+
+
+}
+if ($p==40){
+$z=0;
+}
+}
+$fp = fopen("karty.txt", "w");
+fputs($fp, $talia);
+fclose($fp);
+
+
+
+$myfile=fopen("karty.txt", "r");
+$stare = fread($myfile,filesize("karty.txt"));
+fclose($myfile);
+
+$stare2=explode(",", $stare);
+foreach ($stare2 as $key9){
+$ilo=$ilo+1;
+if($ilo<=10){
+
+$dotabp=$key9.",";
+
+}
+if($ilo>20 and $ilo<30){
+$dotabp2=$key9.",";
+}
+}
+
+$myfile=fopen("karty.txt", "r");
+$stare = fread($myfile,filesize("karty.txt"));
+fclose($myfile);
+
+$stare=str_replace($dotabp,"",$stare);
+
+$stare=str_replace($dotabp2,"",$stare);
+
+$fp = fopen("karty.txt", "w");
+fputs($fp, $stare);
+fclose($fp);
+
+$fp = fopen("kartyplayer.txt", "w");
+fputs($fp, $dotabp);
+fclose($fp);
+
+$fp = fopen("kartyplayer2.txt", "w");
+fputs($fp, $dotabp2);
+fclose($fp);
+
+}
+
+
+
+
+//-------------------------------------
+//--------------szpieg---------------
+//-------------------------------------
+
+
+
+
+if($szpieg==1){
+
+$myfile=fopen("karty.txt", "r");
+$stare = fread($myfile,filesize("karty.txt"));
+fclose($myfile);
+
+$stare2=explode(",", $stare);
+
+$k1=$stare2[0];
+$k2=$stare2[1];
+$talia=$stare;
+$talia=str_replace($k1.",","",$talia);
+
+$talia=str_replace($k2.",","",$talia);
+
+$fp = fopen("karty.txt", "w");
+fputs($fp, $talia);
+fclose($fp);
+
+
+$myfile=fopen("kartyplayer.txt", "r");
+$stare = fread($myfile,filesize("kartyplayer.txt"));
+fclose($myfile);
+
+$stare=$stare.$k1.",".$k2.",";
+
+$fp = fopen("kartyplayer.txt", "w");
+fputs($fp, $stare);
+fclose($fp);
+
+//-------------------------------------dodwanie wroga talie
+$myfile=fopen("tabelap2.txt", "r");
+$stare = fread($myfile,filesize("tabelap2.txt"));
+fclose($myfile);
+
+
+$stare=$stare."@".$dowroga;
+
+$fp = fopen("tabelap2.txt", "w");	
+fputs($fp, $stare);
+fclose($fp);
+}
+
+
+
+echo "<script>";
+//-------------------------------------------------------------
+//-----------------------------------------------------talia id
+//-------------------------------------------------------------
+
+$myfile=fopen("kartyplayer.txt", "r");
+$stare = fread($myfile,filesize("kartyplayer.txt"));
+fclose($myfile);
+$stare2=explode(",", $stare);
+foreach ($stare2 as $key9){
+
+$myfile=fopen("prototyp.txt", "r");
+
+$prototyp = fread($myfile,filesize("prototyp.txt"));
+fclose($myfile);
+
+$prototyp2=explode("@", $prototyp);
+foreach ($prototyp2 as $funkcje){
+
+$key=explode("*", $funkcje);
+
+if($key9==$key[1]){
+
+
+echo "$(\"#taliamoja\").html($(\"#taliamoja\").html()+'<a href=\"index.php?id=".$key9."\"><img src=\"k".$key9.".png\" onmouseover=\"wyswietl(\'k".$key9.".png\');\" onmouseout=\"schowaj();\" title=\"".$key[19]."\"></a>');";
+}
+}
+}
+
+//-------------------------------------
+//--------------wlasciwe---------------
+//-------------------------------------
+
+
+$taliaakcja3=explode("@", $taliaakcja);
+foreach ($taliaakcja3 as $funkcje6){//----poczatek petli
+
+$key=explode("*", $funkcje6);
+
+
+
+
+
+$sila=$key[3];
+
+$silasuma=$silasuma+$key[3];
+
+
+
+$miejsce=$key[7];
+
+
+
+//---------------pogoda
+if($key[11] == "miecz"){
+
+echo "$('#mieczp').html(\"<img src='mroz.jpg'>\");";
+}
+
+if($key[11] == "luk"){
+
+echo "$('#lukp').html(\"<img src='mgla.jpg'>\");";
+}
+
+if($key[11] == "balista"){
+
+echo "$('#balistap').html(\"<img src='deszcz.jpg'>\");";
+}
+
+
+if($key[11] == "miecz"){
+
+echo "$('#mieczp2').html(\"<img src='mroz.jpg'>\");";
+}
+
+if($key[11] == "luk"){
+
+echo "$('#lukp2').html(\"<img src='mgla.jpg'>\");";
+}
+
+if($key[11] == "balista"){
+
+echo "$('#balistap2').html(\"<img src='deszcz.jpg'>\");";
+}
+//----------------------slonce
+if($key[11] == "slonce"){
+
+echo "$('#mieczp').html('');";
+echo "$('#lukp').html('');
+echo "$('#balistap').html('');";
+
+echo "$('#mieczp2').html('');";
+echo "$('#lukp2').html('');";
+echo "$('#balistap2').html('');";
+}
+//-----------------------------tromba
+
+if($key[9]=="miecz"){
+
+echo "$('#mieczt').html(\"<img src='traba.jpg'>\");";
+//echo "$('#mieczt2').html(\"<img src='traba.jpg'\">);";
+
+}
+
+if($key[9]=="luk"){
+
+echo "$('#lukt').html(\"<img src='traba.jpg'>\");";
+//echo "$('#lukt2').html(\"<img src='traba.jpg'>\");";
+
+}
+
+if($key[9]=="balista"){
+
+echo "$('#balistat').html(\"<img src='traba.jpg'>\");";
+//echo "$('#balistat2').html(\"<img src='traba.jpg'>\");";
+
+}
+
+//--------------------------------------------html
+//--------------balista
+if($miejsce=="balista"){
+
+echo "$(\"#balista\").html($(\"#balista\").html()+'<span><img src=\"k".$id.".png\"><span style=\"position:absolute;margin-left:-50;\"><img src=\"kulka.png\" style=\"width:30;height:30;\" ><font style=\"position:absolute;margin-left:-22;margin-top:5;\">".$sila."</font></span></span>');";
+}
+
+//--------------luk
+if($miejsce=="luk"){
+echo "$(\"#luk\").html($(\"#luk\").html()+'<span><img src=\"k".$id.".png\"><span style=\"position:absolute;margin-left:-50;\"><img src=\"kulka.png\" style=\"width:30;height:30;\" ><font style=\"position:absolute;margin-left:-22;margin-top:5;\">".$sila."</font></span></span>');";
+}
+
+//--------------miecz
+if($miejsce=="miecz"){
+echo "$(\"#miecz\").html($(\"#miecz\").html()+'<span><img src=\"k".$id.".png\"><span style=\"position:absolute;margin-left:-50;\"><img src=\"kulka.png\" style=\"width:30;height:30;\" ><font style=\"position:absolute;margin-left:-22;margin-top:5;\">".$sila."</font></span></span>');";
+}
+
+
+}//key i key2 --- koniec petli
+
+
+echo "$('#punkty').html('."$silasuma".')";
+
+//--------------------------------------------
+//-----------------wrog-----------------------
+//--------------------------------------------
+$myfile=fopen("tabelap2.txt", "r");
+$stare = fread($myfile,filesize("tabelap2.txt"));
+fclose($myfile);
+
+
+$taliaakcja3=explode("@", $stare);
+foreach ($taliaakcja3 as $funkcje6){//----poczatek petli
+
+$key=explode("*", $funkcje6);
+
+//------------------------------------------------------------
+//---------------------wyswietlanie wrog----------------------
+//------------------------------------------------------------
+//---------------pogoda
+if($key[11] == "miecz"){
+
+echo "$('#mieczp').html(\"<img src='mroz.jpg'>\");";
+}
+
+if($key[11] == "luk"){
+
+echo "$('#lukp').html(\"<img src='mgla.jpg'>\");";
+}
+
+if($key[11] == "balista"){
+
+echo "$('#balistap').html(\"<img src='deszcz.jpg'>\");";
+}
+
+
+if($key[11] == "miecz"){
+
+echo "$('#mieczp2').html(\"<img src='mroz.jpg'>\");";
+}
+
+if($key[11] == "luk"){
+
+echo "$('#lukp2').html(\"<img src='mgla.jpg'>\");";
+}
+
+if($key[11] == "balista"){
+
+echo "$('#balistap2').html(\"<img src='deszcz.jpg'>\");";
+}
+//----------------------slonce
+if($key[11] == "slonce"){
+
+echo "$('#mieczp').html('');";
+echo "$('#lukp').html('');
+echo "$('#balistap').html('');";
+
+echo "$('#mieczp2').html('');";
+echo "$('#lukp2').html('');";
+echo "$('#balistap2').html('');";
+}
+//-----------------------------tromba
+
+if($key[9]=="miecz"){
+
+//echo "$('#mieczt').html(\"<img src='traba.jpg'>\");";
+echo "$('#mieczt2').html(\"<img src='traba.jpg'\">);";
+
+}
+
+if($key[9]=="luk"){
+
+//echo "$('#lukt').html(\"<img src='traba.jpg'>\");";
+echo "$('#lukt2').html(\"<img src='traba.jpg'>\");";
+
+}
+
+if($key[9]=="balista"){
+
+//echo "$('#balistat').html(\"<img src='traba.jpg'>\");";
+echo "$('#balistat2').html(\"<img src='traba.jpg'>\");";
+
+}
+
+//------------------------------------------------------------
+//---------------------wyswietlanie wrog----------------------
+//------------------------------------------------------------
+
+
+$miejsce=$key[7];
+$sila=$key[3];
+$silasuma2=$silasuma2+$key[3];
+$id=$key[1];
+if($miejsce=="balista"){
+echo "$(\"#balistaw\").html($(\"#balistaw\").html()+'<span><img src=\"k".$id.".png\"><span style=\"position:absolute;margin-left:-50;\"><img src=\"kulka.png\" style=\"width:30;height:30;\" ><font style=\"position:absolute;margin-left:-22;margin-top:5;\">".$sila."</font></span></span>');";
+}
+
+//--------------luk
+if($miejsce=="luk"){
+echo "$(\"#lukw\").html($(\"#lukw\").html()+'<span><img src=\"k".$id.".png\"><span style=\"position:absolute;margin-left:-50;\"><img src=\"kulka.png\" style=\"width:30;height:30;\" ><font style=\"position:absolute;margin-left:-22;margin-top:5;\">".$sila."</font></span></span>');";
+}
+
+//--------------miecz
+if($miejsce=="miecz"){
+echo "$(\"#mieczw\").html($(\"#mieczw\").html()+'<span><img src=\"k".$id.".png\"><span style=\"position:absolute;margin-left:-50;\"><img src=\"kulka.png\" style=\"width:30;height:30;\" ><font style=\"position:absolute;margin-left:-22;margin-top:5;\">".$sila."</font></span></span>');";
+}
+
+}
+
+
+echo "$('#punkty2').html('."$silasuma2".')";
+
+echo "</script>";
+//------------------
+//--interakcja zapis
+//------------------
+
+$fp = fopen("tabela.txt", "w");
+fputs($fp, $taliaakcja);
+
+fclose($fp);
+
+//------------------
+//----koniec php----
+//------------------
+
+?>
+
+//---------notes
+
+<!--
+#mieczw - miejsce na karte wroga miecz
+#lukw - miejsce na karte wroga luk
+#balistaw - miejsce na karte wroga balista
+
+#miecz - miejsce na karte swojom miecz
+#luk - miejsce na karte swoja luk
+#balista - miejsce na karte swoja balista
+
+
+#mieczp - miejsce na pogode mruz
+#lukp - miejsce na pogode mgła
+#balistap - miejsce na pogode deszcz
+
+#mieczp2 - miejsce na pogode mruz gracz2
+#lukp2 - miejsce na pogode mgła gracz2
+#balistap2 - miejsce na pogode deszcz gracz2
+
+#punkty' - miejsce na sume punktow jako
+
+#taliamoja - miejsce na talie kart same ID
+
+#mieczt - miejsce na trombe miecz player 1
+#lukt - miejsce na trombe luk player 1
+#balistat - miejsce na trombe balista player1
+
+#mieczt2 - miejsce na trombe miecz player 2
+#lukt2 - miejsce na trombe luk player 2
+#balistat2 - miejsce na trombe balista player 2
+
+
+
+kartyplayer.txt  - lista kart na stanie  same ID
+
+kartyplayer2.txt - lista kart na stanie  same ID wroga
+
+taliap2.txt - talia kart na stul zywiolow wroga
+tabelap2.txt
+
+talia.txt - talia kart na stul do zywiolow player 1
+tabela.txt
+
+karty.txt - lista kart wszstkich same ID wszystkich
+
+prototyp.txt - lista wszstkich kart
+
+
+
+
+
+
+
+
+
+w*w2*@
+w3*w4*@w*w2*@
+
+
+taliaakcja=key2[0]."*".key2[1]."@".taliaakcja;
+
+
+w*w2*@w3*w4*@-najnowsze na poczatku
+
+
+
+w*w2*@
+w3*w4*@w*w2*@
+
+
+taliaakcja="@".taliaakcja."*".key2[0]."*".key2[1].;
+
+w*w2*@w3*w4*@-najnowsze na koncu
+
+
+
+zamaluj punktacje
+
+str replace do sprawdzenia
+
+lewy fragment calosci zaienia na prawy
+
+inferno bedzie jako zwykla karta na stole
+
+
+
+if(empty($_SESSION["kart"])){
+$_SESSION["kart"]=10;
+}
+
+
+//echo "$('#taljamoja').html($('#taliamoja').html()+'<a href='index.php?id=".$key9."'><img src=\'k".$key9.".png\' alt=\'".$key[19]."\'></a>'";
+
+-->
