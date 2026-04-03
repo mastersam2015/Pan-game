@@ -777,7 +777,7 @@ $.post( "player2.php", { karty: pompa } );
 });
 ////////console.log(talia);
 }
-kartyhtml();
+//kartyhtml();
 
 var pompa2;
 var pompa6;

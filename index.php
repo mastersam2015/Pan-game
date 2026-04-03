@@ -488,7 +488,7 @@ $taliap=$taliap5;
 
 ?>
 <script>
-taliap="<? echo $taliap; ?>";
+taliap="<? echo $taliap4; ?>";
 
 //talia=taliap.split(",");
 <?
@@ -849,7 +849,7 @@ pompa=pompa+taliax[i]+",";
 $.post( "player1.php", { karty: pompa } );
 ////////console.log(talia);
 }
-kartyhtml();
+//kartyhtml();
 
 var pompa2;
 var pompa6;
