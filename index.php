@@ -409,8 +409,7 @@ function taliar(min, max) {
 var w,tpom,tlicz,taliap;
 var talia = new Array();
 
-function losuj(){
-
+</script>
 <?
 $w=1;
 $taliap="";
@@ -457,15 +456,20 @@ foreach ($numbers as $key){
 		}
 	}
 }
+$taliap2=explode(",",$taliap2);
 
-
+asort($taliap2);
+var_dump($taliap2);
+$taliap4=implode(",", $taliap2);
 $fp = fopen("player1.txt", "w");
-fputs($fp, $taliap2);
+fputs($fp, $taliap4);
 fclose($fp);
 
-
+$taliap3=explode(",",$taliap3);
+asort($taliap3);
+$taliap5=implode(",", $taliap3);
 $fp = fopen("player2.txt", "w");
-fputs($fp, $taliap3);
+fputs($fp, $taliap5);
 fclose($fp);
 
 
@@ -477,11 +481,10 @@ $fp = fopen("stul.txt", "w");
 fputs($fp, "");
 fclose($fp);
 
-$taliap=$taliap2;
+$taliap=$taliap5;
+//var_dump($taliap2);
 ?>
-}
-
-losuj();
+<script>
 taliap="<? echo $taliap; ?>";
 
 //talia=taliap.split(",");
@@ -827,7 +830,7 @@ var pompa="";
 
 function kartyhtml(){
 pompa=""
-taliax=talia.sort((a, b) => a - b);
+taliax=talia;
 
 for(var i=0;i<=taliax.length;i++){
 if(xhtmlx(taliax[i])!=undefined){

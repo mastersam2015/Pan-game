@@ -759,7 +759,7 @@ var pompa="";
 
 function kartyhtml(){
 pompa=""
-taliax=talia.sort((a, b) => a - b);
+taliax=talia;
 
 for(var i=0;i<=taliax.length;i++){
 if(xhtmlx(taliax[i])!=undefined){
