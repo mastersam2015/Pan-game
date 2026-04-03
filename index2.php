@@ -758,7 +758,7 @@ kartyhtml();
 var pompa="";
 
 function kartyhtml(){
-pompa=""
+pompa="";
 taliax=talia;
 
 for(var i=0;i<=taliax.length;i++){

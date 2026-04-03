@@ -461,6 +461,7 @@ $taliap2=explode(",",$taliap2);
 asort($taliap2);
 var_dump($taliap2);
 $taliap4=implode(",", $taliap2);
+$taliap4.=",";
 $fp = fopen("player1.txt", "w");
 fputs($fp, $taliap4);
 fclose($fp);
@@ -468,6 +469,7 @@ fclose($fp);
 $taliap3=explode(",",$taliap3);
 asort($taliap3);
 $taliap5=implode(",", $taliap3);
+$taliap5.=",";
 $fp = fopen("player2.txt", "w");
 fputs($fp, $taliap5);
 fclose($fp);
@@ -483,6 +485,7 @@ fclose($fp);
 
 $taliap=$taliap5;
 //var_dump($taliap2);
+
 ?>
 <script>
 taliap="<? echo $taliap; ?>";
@@ -829,7 +832,7 @@ kartyhtml();
 var pompa="";
 
 function kartyhtml(){
-pompa=""
+pompa="";
 taliax=talia;
 
 for(var i=0;i<=taliax.length;i++){

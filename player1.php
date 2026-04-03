@@ -1,7 +1,7 @@
 
 <?
 $x=$_POST["karty"];
-if(is_int($x)){
+if(!empty($x)){
 $fp = fopen("player1.txt", "w");
 fputs($fp, $x);
 fclose($fp);
