@@ -459,7 +459,7 @@ foreach ($numbers as $key){
 $taliap2=explode(",",$taliap2);
 
 asort($taliap2);
-var_dump($taliap2);
+//var_dump($taliap2);
 $taliap4=implode(",", $taliap2);
 $taliap4.=",";
 $fp = fopen("player1.txt", "w");
@@ -490,7 +490,8 @@ $taliap=$taliap5;
 <script>
 taliap="<? echo $taliap4; ?>";
 
-//talia=taliap.split(",");
+
+talia=taliap.split(",");
 <?
 /*
 $arr=explode(",",$taliap);
@@ -507,7 +508,7 @@ echo "talia[".$i."]=".$arr[$i].";
 */
 
 ?>
-talia[12]="";
+//talia[12]="";
 //////console.log(talia);
 
 function readyf(){
@@ -586,37 +587,26 @@ pompa3="";
 
 //alert(wagap(taliar[taliar.length-2]) );
 if(wagap(x)>=wagap(taliar[taliar.length-2]) || wagap(taliar[taliar.length-2]) == undefined){
-////////console.log(taliar[taliar.length-2]);
-
+readyf();
 //$("#talia").html('');
 //$("#karty").html('');
+pompa="";
+for(var i=0;i<=talia.length;i++){
+if(xhtmlx(talia[i])!=undefined){
 
+
+pompa=pompa+talia[i]+",";
+}
+}
+taliap=pompa.replace(x+',', '');
+
+talia=taliap.split(",");
+kartyhtml();
 
 dotaliar=dotaliar+x+",";
-//alert(dotaliar);
-taliar=dotaliar.split(",");
-for(var i=0;i<=taliar.length ;i++){
-if(xhtmlx(taliar[i])!=undefined){
-//alert((i-2)+" "+taliar.length);
-if((taliar.length - 2) == i){
-//alert(i);
-pompa3=pompa3 +   "<span onclick=\"ztalia("+taliar[i]+")\">" +xhtmlx(taliar[i])+ "</span>"+",";
-}else{
-pompa3=pompa3  +  xhtmlx(taliar[i])+",";
-}
-}
-}
-
-//----------tutaj
-
 $.post( "stul.php", { karty: dotaliar } );
 
 
-taliap=taliap.replace(x+",","");
-//taliap=taliap.replace(","+x,"");
-//alert(taliap);
-talia=taliap.split(",");
-kartyhtml();
 }
 
 
@@ -792,34 +782,27 @@ blokff();
 //alert(wagap(taliar[taliar.length-2]) );
 if(wagap(x)>=wagap(taliar[taliar.length-2]) || wagap(taliar[taliar.length-2]) == undefined){
 
+
 readyf();
 //$("#talia").html('');
 //$("#karty").html('');
+pompa="";
+for(var i=0;i<=talia.length;i++){
+if(xhtmlx(talia[i])!=undefined){
 
 
-dotaliar=dotaliar+x+",";//-------------------------------tutaj cos
-//alert(dotaliar);
-taliar=dotaliar.split(",");
-
-for(var i=0;i<=taliar.length ;i++){
-if(xhtmlx(taliar[i])!=undefined){
-//alert((i-2)+" "+taliar.length);
-if((taliar.length - 2) == i){
-//alert(i);
-pompa3=pompa3 +   "<span onclick=\"ztalia("+taliar[i]+")\">" +xhtmlx(taliar[i])+ "</span>"+",";
-}else{
-pompa3=pompa3  +  xhtmlx(taliar[i])+",";
+pompa=pompa+talia[i]+",";
 }
 }
-}
+taliap=pompa.replace(x+',', '');
 
-//----------tutaj
-$.post( "stul.php", { karty: dotaliar } );
-taliap=taliap.replace(x+",","");
-//taliap=taliap.replace(","+x,"");
-//alert(taliap);
 talia=taliap.split(",");
 kartyhtml();
+
+dotaliar=dotaliar+x+",";
+$.post( "stul.php", { karty: dotaliar } );
+
+
 }
 
 }
