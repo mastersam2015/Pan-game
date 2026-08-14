@@ -747,6 +747,7 @@ if(dotaliar2==""){
 
 dotaliar2=dotaliar2+",";
 $.post( "stul.php", { karty: dotaliar2 } );
+talia=talia+x+",";
 kartyhtml();
 }
 }
