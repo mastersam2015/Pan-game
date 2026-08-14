@@ -25,6 +25,7 @@ blokt=blok.split(",");
 <input type="button" value="cztery" onclick="dotalia2(blokt[1]);dotalia2(blokt[2]);dotalia2(blokt[3]);dotalia2(blokt[4]);$('#cztery').hide();readyf();">
 
 
+
 </div>
 <script>
 
@@ -416,6 +417,9 @@ taliap="<? echo $taliap; ?>";
 
 talia=taliap.split(",");
 <?
+
+echo "alert('".$stare."');";
+
 /*
 $arr=explode(",",$taliap);
 for($i=0;$i<=11;$i++){
@@ -476,7 +480,7 @@ var licz=0;
 var dotaliar2="";
 var dotaliar3="";
 var pompa3="";
-
+var tfix="";
 function waga(x){
 //alert(licz);
 ////////console.log(taliax);
@@ -556,9 +560,9 @@ var pompa10="";
 
 var dclick=0;
 var eclick=0;
-
+var t2fix;
 function ztalia(x){
-	
+		tfix="";
 	if($('#kolej').val()=='ready'){
 	dclick++;
 	if (dclick==1){
@@ -571,108 +575,21 @@ $("#talia").html('');
 //$("#karty").html('');
 
 
-
-for(var i=0;i<=taliar.length ;i++){
-if(xhtmlx(taliar[i])!=undefined){
-	if(taliar[i].indexOf(x) != -1){
-		//alert(1);
-	}else{
-dotaliar2=dotaliar2+","+taliar[i];
+	tfix="";
+for(var i2=0;i2<=talia.length-1 ;i2++){
+	if(xhtmlx(talia[i2])!=undefined){
+tfix=tfix+talia[i2]+",";
 }
 }
-}
-
-fix="<span onclick=\"ztalia("+x+")\">"+xhtmlx(x)+"</span>,";
-
-//alert(fix);
-//dotaliar2=dotaliar2.replace(fix,"");
-//dotaliar=dotaliar.replace(fix,"");
-dotaliar=dotaliar.replace(x+",","");
-dotaliar2=","+dotaliar2;
-taliar=dotaliar2.split(",");
-////////console.log(dotaliar);
-//taliar=taliar.sort((a, b) => a - b);
-for(var i=0;i<=taliar.length ;i++){
-if(taliar[i]!=undefined){
-	if(taliar[i]!=""){
-//alert((i-2)+" "+taliar.length);
-if((taliar.length - 1) == i){
-//alert(i);
-//$("#talia").html($("#talia").html() +   "<span onclick=\"ztalia("+taliar[i]+")\">" +xhtmlx(taliar[i])+ "</span>");
-//pompa9=pompa9+"<span onclick=\"ztalia("+taliar[i]+")\">" +xhtmlx(taliar[i])+ "</span>"+",";
-}else{
-//$("#talia").html($("#talia").html() +  xhtmlx(taliar[i]));
-//pompa9=pompa9+xhtmlx(taliar[i])+",";
-}
-}else{
-	
-//pompa9="&nbsp";	
-}
-}
-}
-
-
-for(var i=0;i<=talia.length-1 ;i++){
-if(xhtmlx(talia[i])!=undefined){
-dotaliar3=talia[i]+","+dotaliar3;
-}
-}
-
-dotaliar3=dotaliar3+x+",";
-taliap=dotaliar3;
-//taliap=taliap.replace(x+",","");
-//alert(taliap);
-talia=dotaliar3.split(",");
-
-
-stult=pompa9.split(",");
-//////console.log(stult);
-for(var i=0;i<=stult.length ;i++){
-if(stult[i]!=undefined){
-	//alert(stult[i].indexOf(x));
-	if(strstr(stult[i], x)==false){
-		//alert(1);
-		stulpom=stulpom+stult[i]+",";
-		
-	}else{
-//alert(strstr());
-
-}
-
-}
-}
-//alert(stulpom);
-//alert(stulpom);
-taliarb=stulpom.split(",");
-pompa10="";
-////console.log(taliarb);
-for(var i=0;i<=taliarb.length-1 ;i++){
-if(taliarb[i]!=undefined){
-//alert((i-2)+" "+taliar.length);
-if((taliarb.length - 1) == i){
-//alert(i);
-//$("#talia").html($("#talia").html() +   "<span onclick=\"ztalia("+taliar[i]+")\">" +xhtmlx(taliar[i])+ "</span>");
-pompa10=pompa10+"<span onclick=\"ztalia("+taliarb[i]+")\">" +xhtmlx(taliarb[i])+ "</span>"+",";
-}else{
-//$("#talia").html($("#talia").html() +  xhtmlx(taliar[i]));
-pompa10=pompa10+xhtmlx(taliarb[i])+",";
-}
-}else{pompa10="";}
-}
-//dotaliar=pompa9;
-
-/*
-if(dotaliar2==""){
-	dotaliar2="nbsp";
-}
-*/
-
-dotaliar2=dotaliar2+",";
+dotaliar2=dotaliar.replace(x+',', '');
+tfix=tfix+x+",";
+//dotaliar2=dotaliar2+",";
 $.post( "stul.php", { karty: dotaliar2 } );
-talia=talia+x+",";
+talia=tfix.split(",");
 kartyhtml();
 }
 }
+console.log(tfix);
 }
 
 //alert(strstr("van","k"));
@@ -753,9 +670,9 @@ $("#karty").html($("#karty").html() + "<span onclick=\"dotalia("+taliax[i]+")\">
 pompa=pompa+taliax[i]+",";
 }
 }
-$( document ).ready(function() {
+
 $.post( "player2.php", { karty: pompa } );
-});
+
 ////////console.log(talia);
 }
 //kartyhtml();
@@ -827,7 +744,8 @@ pompa3=pompa3  +  xhtmlx(taliar[i])+",";
 }
 }
 $("#talia").html(pompa3);
-console.log(pompa9);
+//console.log(pompa9);
+//console.log(talia);
 //dotaliar=pompa9;
 dotaliar=pompa9;
 
