@@ -1,6 +1,9 @@
+<html>
+<head>
 <meta name="viewport" content="width=400" />
 <script src="jquery.js"></script>
-
+</head>
+<body>
 <script>
 var blok="";
 var blokt = new Array();
@@ -412,7 +415,7 @@ $taliap=$stare;
 
 
 
-taliap="<? echo $taliap; ?>";
+taliap="<? echo $stare; ?>";
 
 
 talia=taliap.split(",");
