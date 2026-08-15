@@ -12,20 +12,30 @@ function blokff(){
 blokt=blok.split(",");
 ////////console.log(blokt[0]);
 }
+
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
 </script>
 <center>
+
 <div align="center" id="trzy" style="display:none;background-color:000000;">
 
 <input type="button" value="jeden" onclick="dotalia2(blokt[1]);$('#trzy').hide();readyf();">
-<input type="button" value="trzy" onclick="dotalia2(blokt[1]);dotalia2(blokt[2]);dotalia2(blokt[3]);$('#trzy').hide();readyf();">
+<input type="button" value="trzy" onclick="dotalia2(blokt[1]);sleep(500);dotalia2(blokt[2]);sleep(500);dotalia2(blokt[3]);$('#trzy').hide();readyf();">
 
 </div>
 
 <div align="center" id="cztery" style="display:none;background-color:000000;">
 
 <input type="button" value="jeden" onclick="dotalia2(blokt[1]);$('#cztery').hide();readyf();">
-<input type="button" value="trzy" onclick="dotalia2(blokt[1]);dotalia2(blokt[2]);dotalia2(blokt[3]);$('#cztery').hide();readyf();">
-<input type="button" value="cztery" onclick="dotalia2(blokt[1]);dotalia2(blokt[2]);dotalia2(blokt[3]);dotalia2(blokt[4]);$('#cztery').hide();readyf();">
+<input type="button" value="trzy" onclick="dotalia2(blokt[1]);sleep(500);dotalia2(blokt[2]);sleep(500);dotalia2(blokt[3]);$('#cztery').hide();readyf();">
+<input type="button" value="cztery" onclick="dotalia2(blokt[1]);sleep(500);dotalia2(blokt[2]);sleep(500);dotalia2(blokt[3]);sleep(500);dotalia2(blokt[4]);$('#cztery').hide();readyf();">
 
 
 
